@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<title>aground (20160405.01)</title>
+
+	<!-- Bootstrap Core CSS -->
+	<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+
+	<!-- Custom Fonts -->
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" type="text/css">
+
+	<!-- Plugin CSS -->
+	<link rel="stylesheet" href="css/animate.min.css" type="text/css">
+
+
+	<link rel="stylesheet" href="css/aground.css" type="text/css">
+
+	<!-- Custom CSS -->
+	<link rel="stylesheet" href="css/creative.css" type="text/css">
+
+
+
+	<!-- own scripts-->
+	<script src="js/aground/survive.js"></script>
+</head>
+
+
+<body id="page-top">
+
+	<nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+		<div class="container-fluid">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand page-scroll" href="#page-top">aground</a>
+			</div>
+
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a class="page-scroll" href="#section_settings" onClick="reallyStartNewGame();">New Game</a></li>
+					<!--
+					<li><a class="page-scroll" href="#section_settings">Settings</a></li>
+					-->
+					<li><a class="page-scroll" href="#section_status">Status</a></li>
+					<li><a class="page-scroll" href="#section_tasks">Tasks</a></li>
+					<li><a class="page-scroll" href="#section_contact">Contact</a></li>
+				</ul>
+			</div>
+			<!-- /.navbar-collapse -->
+		</div>
+		<!-- /.container-fluid -->
+	</nav>
+
+	<!-- SPLASH-SCREEN -->
+	<header>
+		<div class="header-content">
+			<div class="header-content-inner">
+				<h1>aground</h1>
+				<hr>
+				<p>You run aground while cruising through the canadian wilderness ... try to survive</p>
+				<a href="#section_settings" class="btn btn-primary btn-xl page-scroll">Getting started</a>
+			</div>
+		</div>
+	</header>
+	<!-- /SPLASH-SCREEN -->
+
+
+	<!-- SECTION: SETTINGS -->
+	<section class="bg-primary" id="section_settings">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-lg-offset-2 text-center">
+					<h2 class="section-heading">New Game</h2>
+					<hr class="light">
+
+
+					<div class="form-group">
+						<!-- Player Name -->
+						<label for="usr">Enter your name:</label>
+						<input type="text" class="form-control" id="ui_playerName" placeholder="Playername">
+
+						<!-- Difficulty -->
+						<label for="usr">Choose difficulty:</label>
+						<div class="btn-group" role="group">
+							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Difficulty
+								<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu">
+								<li><a onClick="initGame_SetDifficulty('normal');">Normal</a></li>
+								<li><a onClick="initGame_SetDifficulty('harder');">Harder</a></li>
+								<li><a onClick="initGame_SetDifficulty('hardcore');">Hardcore</a></li>
+							</ul>
+						</div>
+					</div> <!-- end form-group -->
+
+					<a href="#section_status" class="btn btn-default btn-xl page-scroll" onclick="gameStart();">Start</a>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- /SECTION: SETTINGS -->
+
+
+	<!-- SECTION: STATUS -->
+	<section id="section_status">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 text-center">
+					<h2 class="section-heading">Status</h2>
+					<p>on day <input type="text" id="ui_CalDay" disabled class="borderless-input"> at <input type="time" id="ui_CalTime" disabled class="borderless-input"></p>
+					<hr class="primary">
+				</div>
+			</div>
+		</div>
+		<div class="container">
+
+			<!-- Date & Time -->
+			<div class="row">
+				<div class="col-lg-12 col-md-12 text-center">
+					<!--
+					<i class="fa fa-calendar"></i> Day: <input type="text" id="ui_CalDay" disabled>
+					<i class="fa fa-clock-o"></i> Time: <input type="time" id="ui_CalTime" disabled>
+				-->
+				</div>
+			</div>
+
+			<div class="row">
+				<!-- Hydration -->
+				<div class="col-lg-3 col-md-6 text-center">
+
+					<div class="service-box">
+						<i class="fa fa-2x fa-tint wow bounceIn text-primary"></i>
+						<h4>Hydration</h4>
+						<!--
+						<p class="text-muted">You need to drink ...</p>
+						-->
+					</div>
+					<!-- progress-bar -->
+					<div class="progress">
+						<div id="ui_HUDWaterProgress" class="progress-bar progress-bar-striped progress-bar-success active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+							<div id="ui_HUDWaterProgressLabel">100%</div>
+						</div>
+					</div>
+					<input type="text" id="ui_HUDWater" disabled hidden>
+				</div>
+				<!-- /Hydration -->
+
+				<!-- Stamina -->
+				<div class="col-lg-3 col-md-6 text-center">
+					<div class="service-box">
+						<i class="fa fa-2x fa-magic wow bounceIn text-primary" data-wow-delay=".1s"></i>
+						<h4>Stamina</h4>
+						<!--
+						<p class="text-muted">...</p>
+						-->
+					</div>
+					<!-- progress-bar -->
+					<div class="progress">
+						<div id="ui_HUDStaminaProgress" class="progress-bar progress-bar-striped progress-bar-success active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+							<div id="ui_HUDStaminaProgressLabel">100%</div>
+						</div>
+					</div>
+					<input type="text" id="ui_HUDStamina" disabled hidden>
+				</div>
+				<!-- /Stamina -->
+
+				<!-- Energy -->
+				<div class="col-lg-3 col-md-6 text-center">
+					<div class="service-box">
+						<i class="fa fa-2x fa-battery-half wow bounceIn text-primary" data-wow-delay=".2s"></i>
+						<h4>Energy</h4>
+						<!--
+						<p class="text-muted">Get food and sleep to gain energy</p>
+						-->
+					</div>
+					<input type="text" id="ui_HUDEnergy" disabled>
+				</div>
+				<!-- /Energy -->
+
+				<!-- Temperature -->
+				<div class="col-lg-3 col-md-6 text-center">
+					<div class="service-box">
+						<i class="fa fa-2x fa-heartbeat wow bounceIn text-primary" data-wow-delay=".3s"></i>
+						<h4>Body Temp.</h4>
+						<!--
+						<p class="text-muted">Light some fire ...</p>
+						-->
+					</div>
+					<input type="text" id="ui_HUDBodyTemp" disabled>
+				</div>
+				<!-- /Temperature -->
+			</div>
+		</div>
+	</section>
+	<!-- /SECTION: STATUS -->
+
+
+	<!-- SECTION: TASKS -->
+	<section class="no-padding" id="section_tasks">
+
+		<div class="row">
+			<div class="col-lg-12 text-center">
+				<h2 class="section-heading">Tasks</h2>
+				<hr class="primary">
+			</div>
+		</div>
+
+		<div class="container-fluid text-center">
+			<div class="row no-gutter">
+
+				<!-- 1 -->
+				<div class="col-lg-2 col-sm-6">
+					<a href="#" onClick="">
+						<span class="fa-stack fa-2x">
+							<i class="fa fa-circle fa-stack-2x"></i>
+							<i class="fa fa-map-signs fa-stack-1x fa-inverse"></i>
+						</span>
+					</a>
+					<h4>Navigate</h4>
+				</div>
+
+				<!-- 2 -->
+				<div class="col-lg-2 col-sm-6">
+					<a href="#" onClick="">
+						<span class="fa-stack fa-2x">
+							<i class="fa fa-circle fa-stack-2x"></i>
+							<i class="fa fa-home fa-stack-1x fa-inverse"></i>
+						</span>
+					</a>
+					<h4>Camp</h4>
+				</div>
+
+				<!-- 3 -->
+				<div class="col-lg-2 col-sm-6">
+					<a href="#" onClick="">
+						<span class="fa-stack fa-2x">
+							<i class="fa fa-circle fa-stack-2x"></i>
+							<i class="fa fa-cutlery fa-stack-1x fa-inverse"></i>
+						</span>
+					</a>
+					<h4>Food</h4>
+				</div>
+
+				<!-- 4 -->
+				<div class="col-lg-2 col-sm-6">
+					<a href="#" onClick="">
+						<span class="fa-stack fa-2x">
+							<i class="fa fa-circle fa-stack-2x"></i>
+							<i class="fa fa-shopping-bag fa-stack-1x fa-inverse"></i>
+						</span>
+					</a>
+					<h4>Inventory</h4>
+				</div>
+
+				<!-- 5 -->
+				<div class="col-lg-2 col-sm-6">
+					<a href="#" onClick="">
+						<span class="fa-stack fa-2x">
+							<i class="fa fa-circle fa-stack-2x"></i>
+							<i class="fa fa-search fa-stack-1x fa-inverse"></i>
+						</span>
+					</a>
+					<h4>Search</h4>
+				</div>
+
+				<!-- 6 -->
+				<div class="col-lg-2 col-sm-6">
+					<a href="#" onClick="">
+						<span class="fa-stack fa-2x">
+							<i class="fa fa-circle fa-stack-2x"></i>
+							<i class="fa fa-wrench fa-stack-1x fa-inverse"></i>
+						</span>
+					</a>
+					<h4>Build</h4>
+				</div>
+
+			</div>
+		</div>
+</section>
+<!-- /SECTION: TASKS -->
+
+
+
+
+<!-- SECTION: CONTACT -->
+<section id="section_contact">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 col-lg-offset-2 text-center">
+				<h2 class="section-heading">Contact</h2>
+				<hr class="primary">
+			</div>
+			<div class="col-lg-12 text-center">
+				<a href="mailto:agroundATyafpDOTde"><i class="fa fa-envelope-o fa-3x wow bounceIn" data-wow-delay=".1s"></i></a>
+			</div>
+		</div>
+	</div>
+
+</section>
+<!-- /SECTION: CONTACT -->
+
+
+
+<!-- FOOTER -->
+<aside class="bg-dark">
+	<div class="container text-center">
+		<div class="call-to-action">
+			<p><a href="https://github.com/yafp/aground" class="bg-inverse">aground</a> is developed by <a href="http://www.yafp.de">yafp</a> since 2016.</p>
+		</div>
+	</div>
+</aside>
+<!-- /FOOTER -->
+
+
+
+
+<!-- Load JavaScript Resources -->
+<!-- jQuery -->
+<script src="js/jquery.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="js/bootstrap.min.js"></script>
+
+<!-- Plugin JavaScript -->
+<script src="js/jquery.easing.min.js"></script>
+<script src="js/jquery.fittext.js"></script>
+<script src="js/wow.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="js/creative.js"></script>
+
+
+<script>
+	$(document).ready(function ()
+  	{
+		console.log("The DOM is now loaded and can be manipulated.");
+		uiCleanGUINoGameRunning();
+	});
+  </script>
+
+
+</body>
+
+</html>
