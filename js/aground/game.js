@@ -4,9 +4,9 @@
 
 // Stores the selected difficulty before the game starts
 //
-function initGame_SetDifficulty(difficulty)
+function initGame_SetDifficulty(selectedDifficulty)
 {
-	difficulty = difficulty;
+	difficulty = selectedDifficulty;
 	console.log(difficulty);
 }
 
@@ -28,13 +28,16 @@ function gameStart()
 	gameSetInitialValues();
 
     // Start game loop
-    //intervalID = setInterval(onTimerTick, 1000); // 33 milliseconds = ~ 30 frames per sec
-	intervalID = setInterval(onTimerTick, 10); // 33 milliseconds = ~ 30 frames per sec
+    intervalID = setInterval(onTimerTick, 1000); // 33 milliseconds = ~ 30 frames per sec
+	//intervalID = setInterval(onTimerTick, 10); // 33 milliseconds = ~ 30 frames per sec
 
 	// navigation
 	$('#navGamePause').fadeIn(1);
 
-	displayNoty("Game started","notification","3000")
+	reduceHUDValuesByDefaultEachHour();
+
+	displayNoty("Game started","notification","3000");
+
 }
 
 //
@@ -49,15 +52,18 @@ function gameCheckRequirements()
    	}
 
 	// Check if difficulty is set, if not set it to normal
+	//console.log("Diff: "+difficulty);
+
 	if (typeof difficulty == 'undefined')
    	{
 	   	difficulty = "normal"; // Set difficulty
-		console.log("Difficulty is set to "+difficulty);
 	}
+	console.log("Difficulty is set to "+difficulty);
 
 	// fade in several UI sections
    	$('#section_status').fadeIn(500);
    	$('#section_tasks').fadeIn(500);
+
 }
 
 // Set some initial values
@@ -100,6 +106,22 @@ function gameSetInitialValues()
 // #############################################################################
 // GAME
 // #############################################################################
+
+
+function toggleTaskArea(area)
+{
+	console.log("Toggle the task section "+area);
+
+	if($("#taskArea").is(':hidden'))
+	{
+		console.log("Fading in the task area details for "+area);
+		$('#taskArea').fadeIn(500);
+	}
+	else {
+		console.log("Fading out the task area details for "+area);
+		$('#taskArea').fadeOut(500);
+	}
+}
 
 
 // PAUSE the GAMELOOP
@@ -272,26 +294,20 @@ function gameEnd(reason)
 // UNSORTED / MISC
 // #############################################################################
 
-// hide and show navbar items - depening on the game state (running game or not)
-//
-function ui_updateNavBar()
-{
-
-}
-
-
-
 function uiCleanGUINoGameRunning()
 {
 	console.log("Cleaned UI (no game running)");
 
+	// main sections
 	// hide some
 	$('#section_status').fadeOut(500);
 	$('#section_tasks').fadeOut(500);
-	// navigation
-	$('#navGamePause').fadeOut(1);
-
-
 	// show some
 	$('#section_settings').fadeIn(500);
+
+
+	$('#taskArea').fadeOut(500);
+
+	// navigation-related
+	$('#navGamePause').fadeOut(1); // show pause menu entry
 }

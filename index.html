@@ -7,7 +7,9 @@
 	<meta name="description" content="aground is a survival game based on modern web technologies">
 	<meta name="author" content="yafp">
 
-	<title>aground (20160406.01)</title>
+	<title>aground</title>
+
+	<link rel="icon" type="image/png" href="img/fa-map-o_256_0_000000_f05f40.png" />
 
 	<!-- Bootstrap Core CSS -->
 	<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
@@ -95,21 +97,15 @@
 						-->
 						<input type="text" class="form-control" id="ui_playerName" placeholder="Playername">
 
-						<!-- Difficulty -->
-						<!--
-						<label for="usr">Choose difficulty:</label>
-						-->
-						<div class="btn-group" role="group">
-							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								Difficulty
-								<span class="caret"></span>
-							</button>
-							<ul class="dropdown-menu">
-								<li><a onClick="initGame_SetDifficulty('normal');">Normal</a></li>
-								<li><a onClick="initGame_SetDifficulty('harder');">Harder</a></li>
-								<li><a onClick="initGame_SetDifficulty('hardcore');">Hardcore</a></li>
-							</ul>
+						<hr class="light">
+
+						<div class="btn-group btn-group-justified" role="group" aria-label="...">
+							<a onClick="initGame_SetDifficulty('normal');" class="btn btn-default" role="button">Normal</a>
+							<a onClick="initGame_SetDifficulty('harder');" class="btn btn-default" role="button">Harder</a>
+							<a onClick="initGame_SetDifficulty('hardcore');" class="btn btn-default" role="button">Hardcore</a>
 						</div>
+
+
 					</div> <!-- end form-group -->
 
 					<a href="#section_status" class="btn btn-default btn-xl page-scroll" onclick="gameStart();">Start</a>
@@ -212,7 +208,7 @@
 		<div class="container-fluid text-center">
 			<div class="row no-gutter">
 
-				<!-- 1 -->
+				<!-- Navigate -->
 				<div class="col-lg-2 col-sm-6">
 					<a href="#" onClick="">
 						<span class="fa-stack fa-2x">
@@ -223,7 +219,7 @@
 					<h4>Navigate</h4>
 				</div>
 
-				<!-- 2 -->
+				<!-- Camp -->
 				<div class="col-lg-2 col-sm-6">
 					<a href="#" onClick="">
 						<span class="fa-stack fa-2x">
@@ -234,9 +230,9 @@
 					<h4>Camp</h4>
 				</div>
 
-				<!-- 3 -->
+				<!-- Food -->
 				<div class="col-lg-2 col-sm-6">
-					<a href="#" onClick="">
+					<a onClick="toggleTaskArea('food');">
 						<span class="fa-stack fa-2x">
 							<i class="fa fa-circle fa-stack-2x"></i>
 							<i class="fa fa-cutlery fa-stack-1x fa-inverse"></i>
@@ -245,7 +241,7 @@
 					<h4>Food</h4>
 				</div>
 
-				<!-- 4 -->
+				<!-- Inventory -->
 				<div class="col-lg-2 col-sm-6">
 					<a href="#" onClick="">
 						<span class="fa-stack fa-2x">
@@ -256,7 +252,7 @@
 					<h4>Inventory</h4>
 				</div>
 
-				<!-- 5 -->
+				<!-- Search -->
 				<div class="col-lg-2 col-sm-6">
 					<a href="#" onClick="">
 						<span class="fa-stack fa-2x">
@@ -267,7 +263,7 @@
 					<h4>Search</h4>
 				</div>
 
-				<!-- 6 -->
+				<!-- Build -->
 				<div class="col-lg-2 col-sm-6">
 					<a href="#" onClick="">
 						<span class="fa-stack fa-2x">
@@ -278,8 +274,25 @@
 					<h4>Build</h4>
 				</div>
 
+
+
+
 			</div>
+
+			<!-- food -->
+			<div class="bg-primary" id="taskArea">
+				<h3>Food</h3>
+				<ul>
+					<li><a onClick="consumeFood('drink')"><span class="badge"><i class="fa fa-beer"></i> Drink</span></a></li>
+					<li><a onClick="consumeFood('eat')">Eat</a></li>
+				</ul>
+			</div>
+
 		</div>
+
+
+
+
 	</section>
 	<!-- /SECTION: TASKS -->
 
@@ -310,7 +323,7 @@
 		<div class="container text-center">
 			<div class="call-to-action">
 				<p><a href="https://github.com/yafp/aground" class="bg-inverse">aground</a> is developed by <a href="http://www.yafp.de">yafp</a> since 2016.</p>
-				<p>Version: 20160406.01</p>
+				<p>Version: 20160406.02</p>
 				<p><a href="https://github.com/yafp/agrounds"><i class="fa fa-4x fa-github"></i></a></p>
 			</div>
 		</div>
