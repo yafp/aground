@@ -14,6 +14,7 @@ You run aground while cruising through the canadian wilderness ... try to surviv
 
 ## Resources
 * jQuery
+* noty
 * FontAwesome
 * Bootstrap
 * Bootstrap Template http://startbootstrap.com/template-overviews/creative/
