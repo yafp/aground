@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="">
-	<meta name="author" content="">
+	<meta name="description" content="aground is a survival game based on modern web technologies">
+	<meta name="author" content="yafp">
 
-	<title>aground (20160405.01)</title>
+	<title>aground (20160406.01)</title>
 
 	<!-- Bootstrap Core CSS -->
 	<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
@@ -28,9 +27,9 @@
 	<link rel="stylesheet" href="css/creative.css" type="text/css">
 
 
-
-	<!-- own scripts-->
-	<script src="js/aground/survive.js"></script>
+	<!-- aground scripts-->
+	<script src="js/aground/game.js"></script>
+	<script src="js/aground/helper.js"></script>
 </head>
 
 
@@ -46,13 +45,14 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand page-scroll" href="#page-top">aground</a>
+				<a class="navbar-brand page-scroll" href="#page-top"><i class="fa fa-map-o"></i> aground</a>
 			</div>
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-right">
-					<li><a class="page-scroll" href="#section_settings" onClick="reallyStartNewGame();">New Game</a></li>
+					<li><a class="page-scroll" href="#section_settings" id="" onClick="reallyStartNewGame();">New Game</a></li>
+					<li><a class="page-scroll" id="navGamePause" onClick="gamePause();">Pause</a></li>
 					<!--
 					<li><a class="page-scroll" href="#section_settings">Settings</a></li>
 					-->
@@ -70,6 +70,7 @@
 	<header>
 		<div class="header-content">
 			<div class="header-content-inner">
+				<h1><i class="fa fa-map-o"></i></h1>
 				<h1>aground</h1>
 				<hr>
 				<p>You run aground while cruising through the canadian wilderness ... try to survive</p>
@@ -84,18 +85,20 @@
 	<section class="bg-primary" id="section_settings">
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-8 col-lg-offset-2 text-center">
+				<div class="col-lg-4 col-lg-offset-4 text-center">
 					<h2 class="section-heading">New Game</h2>
 					<hr class="light">
-
-
 					<div class="form-group">
 						<!-- Player Name -->
+						<!--
 						<label for="usr">Enter your name:</label>
+						-->
 						<input type="text" class="form-control" id="ui_playerName" placeholder="Playername">
 
 						<!-- Difficulty -->
+						<!--
 						<label for="usr">Choose difficulty:</label>
+						-->
 						<div class="btn-group" role="group">
 							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								Difficulty
@@ -123,27 +126,15 @@
 			<div class="row">
 				<div class="col-lg-12 text-center">
 					<h2 class="section-heading">Status</h2>
-					<p>on day <input type="text" id="ui_CalDay" disabled class="borderless-input"> at <input type="time" id="ui_CalTime" disabled class="borderless-input"></p>
 					<hr class="primary">
+					<p>on day <input type="text" id="ui_CalDay" disabled class="borderless-input"> at <input type="time" id="ui_CalTime" disabled class="borderless-input"></p>
 				</div>
 			</div>
 		</div>
 		<div class="container">
-
-			<!-- Date & Time -->
-			<div class="row">
-				<div class="col-lg-12 col-md-12 text-center">
-					<!--
-					<i class="fa fa-calendar"></i> Day: <input type="text" id="ui_CalDay" disabled>
-					<i class="fa fa-clock-o"></i> Time: <input type="time" id="ui_CalTime" disabled>
-				-->
-				</div>
-			</div>
-
 			<div class="row">
 				<!-- Hydration -->
 				<div class="col-lg-3 col-md-6 text-center">
-
 					<div class="service-box">
 						<i class="fa fa-2x fa-tint wow bounceIn text-primary"></i>
 						<h4>Hydration</h4>
@@ -153,7 +144,7 @@
 					</div>
 					<!-- progress-bar -->
 					<div class="progress">
-						<div id="ui_HUDWaterProgress" class="progress-bar progress-bar-striped progress-bar-success active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+						<div id="ui_HUDWaterProgress" class="progress-bar progress-bar-striped progress-bar-success active" style="min-width: 30px;" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%" min-width="10%">
 							<div id="ui_HUDWaterProgressLabel">100%</div>
 						</div>
 					</div>
@@ -166,13 +157,10 @@
 					<div class="service-box">
 						<i class="fa fa-2x fa-magic wow bounceIn text-primary" data-wow-delay=".1s"></i>
 						<h4>Stamina</h4>
-						<!--
-						<p class="text-muted">...</p>
-						-->
 					</div>
 					<!-- progress-bar -->
 					<div class="progress">
-						<div id="ui_HUDStaminaProgress" class="progress-bar progress-bar-striped progress-bar-success active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+						<div id="ui_HUDStaminaProgress" class="progress-bar progress-bar-striped progress-bar-success active" style="min-width: 30px;" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
 							<div id="ui_HUDStaminaProgressLabel">100%</div>
 						</div>
 					</div>
@@ -292,14 +280,14 @@
 
 			</div>
 		</div>
-</section>
-<!-- /SECTION: TASKS -->
+	</section>
+	<!-- /SECTION: TASKS -->
 
 
 
 
-<!-- SECTION: CONTACT -->
-<section id="section_contact">
+	<!-- SECTION: CONTACT -->
+	<section id="section_contact">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-8 col-lg-offset-2 text-center">
@@ -312,20 +300,22 @@
 		</div>
 	</div>
 
-</section>
-<!-- /SECTION: CONTACT -->
+	</section>
+	<!-- /SECTION: CONTACT -->
 
 
 
-<!-- FOOTER -->
-<aside class="bg-dark">
-	<div class="container text-center">
-		<div class="call-to-action">
-			<p><a href="https://github.com/yafp/aground" class="bg-inverse">aground</a> is developed by <a href="http://www.yafp.de">yafp</a> since 2016.</p>
+	<!-- FOOTER -->
+	<aside class="bg-dark">
+		<div class="container text-center">
+			<div class="call-to-action">
+				<p><a href="https://github.com/yafp/aground" class="bg-inverse">aground</a> is developed by <a href="http://www.yafp.de">yafp</a> since 2016.</p>
+				<p>Version: 20160406.01</p>
+				<p><a href="https://github.com/yafp/agrounds"><i class="fa fa-4x fa-github"></i></a></p>
+			</div>
 		</div>
-	</div>
-</aside>
-<!-- /FOOTER -->
+	</aside>
+	<!-- /FOOTER -->
 
 
 
@@ -333,6 +323,40 @@
 <!-- Load JavaScript Resources -->
 <!-- jQuery -->
 <script src="js/jquery.js"></script>
+
+<!-- noty -->
+<script type="text/javascript" src="js/noty/packaged/jquery.noty.packaged.min.js"></script>
+<script>
+$.noty.defaults = {
+    layout: 'center',
+    theme: 'defaultTheme', // or 'relax'
+    type: 'alert',
+    text: '', // can be html or string
+    dismissQueue: true, // If you want to use queue feature set this true
+    template: '<div class="noty_message"><span class="noty_text"></span><div class="noty_close"></div></div>',
+    animation: {
+        open: {height: 'toggle'}, // or Animate.css class names like: 'animated bounceInLeft'
+        close: {height: 'toggle'}, // or Animate.css class names like: 'animated bounceOutLeft'
+        easing: 'swing',
+        speed: 500 // opening & closing animation speed
+    },
+    timeout: false, // delay for closing event. Set false for sticky notifications
+    force: false, // adds notification to the beginning of queue when set to true
+    modal: false,
+    maxVisible: 5, // you can set max visible notification for dismissQueue true option,
+    killer: false, // for close all notifications before show
+    closeWith: ['click'], // ['click', 'button', 'hover', 'backdrop'] // backdrop click will close all notifications
+    callback: {
+        onShow: function() {},
+        afterShow: function() {},
+        onClose: function() {},
+        afterClose: function() {},
+        onCloseClick: function() {},
+    },
+    buttons: false // an array of buttons
+};
+</script>
+
 
 <!-- Bootstrap Core JavaScript -->
 <script src="js/bootstrap.min.js"></script>
@@ -349,10 +373,10 @@
 <script>
 	$(document).ready(function ()
   	{
-		console.log("The DOM is now loaded and can be manipulated.");
+		console.log("The aground DOM is now loaded and can be manipulated ... enjoy");
 		uiCleanGUINoGameRunning();
 	});
-  </script>
+</script>
 
 
 </body>
