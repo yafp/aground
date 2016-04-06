@@ -1,11 +1,17 @@
-// hide and show navbar items - depening on the game state (running game or not)
-//
-function ui_updateNavBar()
-{
+// #############################################################################
+// PRE GAME
+// #############################################################################
 
+// Stores the selected difficulty before the game starts
+//
+function initGame_SetDifficulty(difficulty)
+{
+	difficulty = difficulty;
+	console.log(difficulty);
 }
 
-
+// Ask user if he really wants to start a new game
+//
 function reallyStartNewGame()
 {
 	if (confirm('Do you really want to start a new game?'))
@@ -14,32 +20,22 @@ function reallyStartNewGame()
 	}
 }
 
-
-function uiCleanGUINoGameRunning()
-{
-	console.log("no game running");
-
-	// hide some
-	$('#section_status').hide();
-	$('#section_tasks').hide();
-
-	// show some
-	$('#section_settings').show();
-}
-
-
-
 // Init CALENDAR, the HUD and start the GAMELOOP
 //
 function gameStart()
 {
 	gameCheckRequirements();
+	gameSetInitialValues();
 
     // Start game loop
     //intervalID = setInterval(onTimerTick, 1000); // 33 milliseconds = ~ 30 frames per sec
 	intervalID = setInterval(onTimerTick, 10); // 33 milliseconds = ~ 30 frames per sec
-}
 
+	// navigation
+	$('#navGamePause').fadeIn(1);
+
+	displayNoty("Game started","notification","3000")
+}
 
 //
 //
@@ -52,18 +48,17 @@ function gameCheckRequirements()
     	$( "#ui_playerName" ).val("Lazy Bastard");
    	}
 
-   	// Set difficulty
-   	difficulty = "normal";
+	// Check if difficulty is set, if not set it to normal
+	if (typeof difficulty == 'undefined')
+   	{
+	   	difficulty = "normal"; // Set difficulty
+		console.log("Difficulty is set to "+difficulty);
+	}
 
 	// fade in several UI sections
-   	$('#section_status').fadeIn(1);
-   	$('#section_tasks').fadeIn(1);
-	// fade out other sections
-	//$('#section_settings').fadeOut(500);
-
-	gameSetInitialValues();
+   	$('#section_status').fadeIn(500);
+   	$('#section_tasks').fadeIn(500);
 }
-
 
 // Set some initial values
 //
@@ -71,7 +66,7 @@ function gameSetInitialValues()
 {
     // Update initial Day and Time
     $( "#ui_CalDay" ).val("1")
-    $( "#ui_CalTime" ).val("22:00")
+    $( "#ui_CalTime" ).val("17:31")
 
     // Update HUD
     $( "#ui_HUDWater" ).val("100")
@@ -86,14 +81,32 @@ function gameSetInitialValues()
 			factorLossWaterPerHour = 0.8;
 			factorLossStaminaPerHour = 0.9;
          break;
+
       case "harder":
             factorLossWaterPerHour = 0.9;
 			factorLossStaminaPerHour = 0.95;
          break;
+
       default:
 			factorLossWaterPerHour = 0.95;
 			factorLossStaminaPerHour = 0.99;
+	}
 }
+
+
+
+
+
+// #############################################################################
+// GAME
+// #############################################################################
+
+
+// PAUSE the GAMELOOP
+//
+function gamePause()
+{
+	alert("PAUSE - Press OK to RESUME GAME");
 }
 
 
@@ -107,7 +120,6 @@ function getHUDValues()
     curHUDEnergy = $( "#ui_HUDEnergy" ).val();
     curHUDBodyTemp = $( "#ui_HUDBodyTemp" ).val();
 }
-
 
 // Get date & time values
 //
@@ -123,7 +135,6 @@ function getGameDateTimeValues()
     curDay = parseInt(curDay);
 }
 
-
 // Set date time values
 //
 function setGameDateTimeValues()
@@ -131,7 +142,6 @@ function setGameDateTimeValues()
     $( "#ui_CalDay" ).val(curDay);
     $( "#ui_CalTime" ).val(curHour+":"+curMinute);
 }
-
 
 // Update GAMELOOP
 //
@@ -165,9 +175,7 @@ function onTimerTick()
           }
        }
        setGameDateTimeValues();
-
 }
-
 
 
 // Update the HUD values each full hour
@@ -235,28 +243,55 @@ function reduceHUDValuesByDefaultEachHour()
         $( "#ui_HUDStamina" ).val(0);
         gameEnd("Your stamina reached 0");
     }
-
-
 }
 
 
 
-// End the GAMELOOP
+// #############################################################################
+// POST GAME
+// #############################################################################
+
+// End the GAMELOOP & Displays GAME OVER notification
 //
 function gameEnd(reason)
 {
+	clearInterval(intervalID); // stop the game loop
+
+	// fadeOut some sections
+	$('#section_tasks').fadeOut(1000);
+
 	console.log(reason);
 	console.log("*** GAME OVER ***");
 
-	clearInterval(intervalID); // stop the game loop
+	displayNoty("<h2>GAME OVER</h2><hr><h4>"+reason+"</h4>","notification");
 }
 
 
 
-// Stores the selected difficulty
+// #############################################################################
+// UNSORTED / MISC
+// #############################################################################
+
+// hide and show navbar items - depening on the game state (running game or not)
 //
-function initGame_SetDifficulty(difficulty)
+function ui_updateNavBar()
 {
-	difficulty = difficulty;
-	console.log(difficulty);
+
+}
+
+
+
+function uiCleanGUINoGameRunning()
+{
+	console.log("Cleaned UI (no game running)");
+
+	// hide some
+	$('#section_status').fadeOut(500);
+	$('#section_tasks').fadeOut(500);
+	// navigation
+	$('#navGamePause').fadeOut(1);
+
+
+	// show some
+	$('#section_settings').fadeIn(500);
 }
