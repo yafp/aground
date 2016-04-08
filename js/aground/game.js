@@ -107,20 +107,34 @@ function gameSetInitialValues()
 // GAME
 // #############################################################################
 
-
 function toggleTaskArea(area)
 {
-	console.log("Toggle the task section "+area);
+	curArea = "#"+area
+	console.log("Toggle the task section "+curArea);
 
-	if($("#taskArea").is(':hidden'))
+	// hide all other areas besides the currently clicked
+
+
+	// check if the selected area is currently visible or not
+	if($(curArea).is(':hidden'))
 	{
-		console.log("Fading in the task area details for "+area);
-		$('#taskArea').fadeIn(500);
+		// fade out all areas
+		$( "#navigate" ).fadeOut(1);
+		$( "#camp" ).fadeOut(1);
+		$( "#food" ).fadeOut(1);
+		$( "#inventory" ).fadeOut(1);
+		$( "#search" ).fadeOut(1);
+		$( "#build" ).fadeOut(1);
+
+		$( curArea ).fadeIn(1000);
+		//console.log("is currently hidden");
 	}
 	else {
-		console.log("Fading out the task area details for "+area);
-		$('#taskArea').fadeOut(500);
+		//console.log("is currently visible");
+		$( curArea ).fadeOut(1000);
 	}
+
+	return false; // prevent executing the a href
 }
 
 
@@ -302,12 +316,19 @@ function uiCleanGUINoGameRunning()
 	// hide some
 	$('#section_status').fadeOut(500);
 	$('#section_tasks').fadeOut(500);
-	// show some
-	$('#section_settings').fadeIn(500);
 
-
-	$('#taskArea').fadeOut(500);
+	// Task Areas
+	//
+	$( "#navigate" ).fadeOut(1);
+	$( "#camp" ).fadeOut(1);
+	$( "#food" ).fadeOut(1);
+	$( "#inventory" ).fadeOut(1);
+	$( "#search" ).fadeOut(1);
+	$( "#build" ).fadeOut(1);
 
 	// navigation-related
 	$('#navGamePause').fadeOut(1); // show pause menu entry
+
+	// show some
+	$('#section_settings').fadeIn(500);
 }

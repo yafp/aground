@@ -210,7 +210,7 @@
 
 				<!-- Navigate -->
 				<div class="col-lg-2 col-sm-6">
-					<a href="#" onClick="">
+					<a href="" onClick="return toggleTaskArea('navigate');">
 						<span class="fa-stack fa-2x">
 							<i class="fa fa-circle fa-stack-2x"></i>
 							<i class="fa fa-map-signs fa-stack-1x fa-inverse"></i>
@@ -221,7 +221,7 @@
 
 				<!-- Camp -->
 				<div class="col-lg-2 col-sm-6">
-					<a href="#" onClick="">
+					<a href="" onClick="return toggleTaskArea('camp');">
 						<span class="fa-stack fa-2x">
 							<i class="fa fa-circle fa-stack-2x"></i>
 							<i class="fa fa-home fa-stack-1x fa-inverse"></i>
@@ -232,7 +232,7 @@
 
 				<!-- Food -->
 				<div class="col-lg-2 col-sm-6">
-					<a onClick="toggleTaskArea('food');">
+					<a href="" onClick="return toggleTaskArea('food');">
 						<span class="fa-stack fa-2x">
 							<i class="fa fa-circle fa-stack-2x"></i>
 							<i class="fa fa-cutlery fa-stack-1x fa-inverse"></i>
@@ -243,7 +243,7 @@
 
 				<!-- Inventory -->
 				<div class="col-lg-2 col-sm-6">
-					<a href="#" onClick="">
+					<a href="" onClick="return toggleTaskArea('inventory');">
 						<span class="fa-stack fa-2x">
 							<i class="fa fa-circle fa-stack-2x"></i>
 							<i class="fa fa-shopping-bag fa-stack-1x fa-inverse"></i>
@@ -254,7 +254,7 @@
 
 				<!-- Search -->
 				<div class="col-lg-2 col-sm-6">
-					<a href="#" onClick="">
+					<a href="" onClick="return toggleTaskArea('search');">
 						<span class="fa-stack fa-2x">
 							<i class="fa fa-circle fa-stack-2x"></i>
 							<i class="fa fa-search fa-stack-1x fa-inverse"></i>
@@ -265,7 +265,7 @@
 
 				<!-- Build -->
 				<div class="col-lg-2 col-sm-6">
-					<a href="#" onClick="">
+					<a href="" onClick="return toggleTaskArea('build');">
 						<span class="fa-stack fa-2x">
 							<i class="fa fa-circle fa-stack-2x"></i>
 							<i class="fa fa-wrench fa-stack-1x fa-inverse"></i>
@@ -274,25 +274,37 @@
 					<h4>Build</h4>
 				</div>
 
-
-
-
 			</div>
 
+
+			<!-- Details for all Task Areas -->
+			<!-- Navigate -->
+			<div class="taskArea" id="navigate">
+				<h3>Navigate</h3>
+			</div>
+			<!-- Camp -->
+			<div class="taskArea" id="camp">
+				<h3>Camp</h3>
+			</div>
 			<!-- food -->
-			<div class="bg-primary" id="taskArea">
+			<div class="taskArea" id="food">
 				<h3>Food</h3>
-				<ul>
-					<li><a onClick="consumeFood('drink')"><span class="badge"><i class="fa fa-beer"></i> Drink</span></a></li>
-					<li><a onClick="consumeFood('eat')">Eat</a></li>
-				</ul>
 			</div>
+			<!-- inventory -->
+			<div class="taskArea" id="inventory">
+				<h3>Inventory</h3>
+			</div>
+			<!-- Search -->
+			<div class="taskArea" id="search">
+				<h3>Search</h3>
+			</div>
+			<!-- Build -->
+			<div class="taskArea" id="build">
+				<h3>Build</h3>
+			</div>
+
 
 		</div>
-
-
-
-
 	</section>
 	<!-- /SECTION: TASKS -->
 
@@ -323,7 +335,7 @@
 		<div class="container text-center">
 			<div class="call-to-action">
 				<p><a href="https://github.com/yafp/aground" class="bg-inverse">aground</a> is developed by <a href="http://www.yafp.de">yafp</a> since 2016.</p>
-				<p>Version: 20160406.02</p>
+				<p>Version: 20160408.01</p>
 				<p><a href="https://github.com/yafp/agrounds"><i class="fa fa-4x fa-github"></i></a></p>
 			</div>
 		</div>
