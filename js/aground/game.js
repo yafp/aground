@@ -27,17 +27,21 @@ function gameStart()
 	gameCheckRequirements();
 	gameSetInitialValues();
 
+	updateProgressBar({progressBarHiddenField: ui_HUDWater.id, progressBar: ui_HUDWaterProgress.id , progressBarLabel: ui_HUDWaterProgressLabel.id , newValue: 100});
+	updateProgressBar({progressBarHiddenField: ui_HUDStamina.id, progressBar: ui_HUDStaminaProgress.id , progressBarLabel: ui_HUDStaminaProgressLabel.id , newValue: 100});
+	updateProgressBar({progressBarHiddenField: ui_HUDEnergy.id, progressBar: ui_HUDEnergyProgress.id , progressBarLabel: ui_HUDEnergyProgressLabel.id , newValue: 100});
+	updateProgressBar({progressBarHiddenField: ui_HUDBodyTemp.id, progressBar: ui_HUDBodyTempProgress.id , progressBarLabel: ui_HUDBodyTempProgressLabel.id , newValue: 100});
+
+	$('#navGamePause').fadeIn(1); // add pause entry to nav-bar
+
     // Start game loop
+	//
     //intervalID = setInterval(onTimerTick, 1000); // 33 milliseconds = ~ 30 frames per sec
 	intervalID = setInterval(onTimerTick, 10); // 33 milliseconds = ~ 30 frames per sec
 
-	// navigation
-	$('#navGamePause').fadeIn(1);
-
-	reduceHUDValuesByDefaultEachHour();
+	//reduceHUDValuesByDefaultEachHour();
 
 	displayNoty("Game started","notification","3000");
-
 }
 
 //
@@ -50,9 +54,6 @@ function gameCheckRequirements()
    	{
     	$( "#ui_playerName" ).val("Lazy Bastard");
    	}
-
-	// Check if difficulty is set, if not set it to normal
-	//console.log("Diff: "+difficulty);
 
 	if (typeof difficulty == 'undefined')
    	{
@@ -80,28 +81,28 @@ function gameSetInitialValues()
     $( "#ui_HUDEnergy" ).val("100")
     $( "#ui_HUDBodyTemp" ).val("100")
 
-   // Depending on difficulty
-   switch(difficulty)
-   {
-      case "hardcore":
+   	// Depending on difficulty
+   	switch(difficulty)
+   	{
+    	case "hardcore":
 			factorLossWaterPerHour = 0.8;
-			factorLossStaminaPerHour = 0.8;
+			factorLossStaminaPerHour = 0.82;
 			factorLossEnergyPerHour = 0.85;
 			factorLossBodyTempPerHour = 0.9;
-         break;
+        break;
 
-      case "harder":
+      	case "harder":
             factorLossWaterPerHour = 0.9;
-			factorLossStaminaPerHour = 0.95;
-			factorLossEnergyPerHour = 0.95;
+			factorLossStaminaPerHour = 0.94;
+			factorLossEnergyPerHour = 0.96;
 			factorLossBodyTempPerHour = 0.95;
-         break;
+        break;
 
-      default:
+      	default:
 			factorLossWaterPerHour = 0.95;
-			factorLossStaminaPerHour = 0.99;
+			factorLossStaminaPerHour = 0.97;
 			factorLossEnergyPerHour = 0.99;
-			factorLossBodyTempPerHour = 0.99;
+			factorLossBodyTempPerHour = 0.98;
 	}
 }
 
@@ -116,10 +117,10 @@ function gameSetInitialValues()
 function updateProgressBar(arg)
 {
 	console.log("Updating a progress bar");
-	console.log(arg.progressBarHiddenField);
-	console.log(arg.progressBar);
-	console.log(arg.progressBarLabel);
-	console.log(arg.newValue);
+	//console.log(arg.progressBarHiddenField);
+	//console.log(arg.progressBar);
+	//console.log(arg.progressBarLabel);
+	//console.log(arg.newValue);
 
 	$( "#"+arg.progressBarHiddenField).val(arg.newValue); // update hidden field
 	$( "#"+arg.progressBar ).attr('aria-valuenow', arg.newValue+'%').css('width',arg.newValue+'%'); // update progress-bar itself
@@ -243,9 +244,11 @@ function reduceHUDValuesByDefaultEachHour()
     console.log("Water: "+curHUDWater);
     if(curHUDWater > 0)
     {
-        $( "#ui_HUDWater" ).val(curHUDWater); // update hidden field
-        $( '#ui_HUDWaterProgress').attr('aria-valuenow', curHUDWater+'%').css('width',curHUDWater+'%'); // update progress-bar itself
-		$( "#ui_HUDWaterProgressLabel" ).text( curHUDWater+'%' );	// update label of progress bar
+		updateProgressBar({progressBarHiddenField: ui_HUDWater.id, progressBar: ui_HUDWaterProgress.id , progressBarLabel: ui_HUDWaterProgressLabel.id , newValue: curHUDWater});
+
+        //$( "#ui_HUDWater" ).val(curHUDWater); // update hidden field
+        //$( '#ui_HUDWaterProgress').attr('aria-valuenow', curHUDWater+'%').css('width',curHUDWater+'%'); // update progress-bar itself
+		//$( "#ui_HUDWaterProgressLabel" ).text( curHUDWater+'%' );	// update label of progress bar
 
 		// adjust progress-bar color
 		if(curHUDWater => 70) // green
@@ -274,9 +277,11 @@ function reduceHUDValuesByDefaultEachHour()
     console.log("Stamina: "+curHUDStamina);
     if(curHUDStamina > 0)
     {
-        $( "#ui_HUDStamina" ).val(curHUDStamina); // update hidden field
-        $( "#ui_HUDStaminaProgress" ).attr('aria-valuenow', curHUDStamina+'%').css('width',curHUDStamina+'%'); // update progress-bar itself
-		$( "#ui_HUDStaminaProgressLabel" ).text( curHUDStamina+'%' );	// update label of progress bar
+		updateProgressBar({progressBarHiddenField: ui_HUDStamina.id, progressBar: ui_HUDStaminaProgress.id , progressBarLabel: ui_HUDStaminaProgressLabel.id , newValue: curHUDStamina});
+
+        //$( "#ui_HUDStamina" ).val(curHUDStamina); // update hidden field
+        //$( "#ui_HUDStaminaProgress" ).attr('aria-valuenow', curHUDStamina+'%').css('width',curHUDStamina+'%'); // update progress-bar itself
+		//$( "#ui_HUDStaminaProgressLabel" ).text( curHUDStamina+'%' );	// update label of progress bar
 
 		// adjust progress-bar color
 		if(curHUDStamina => 70) // green
@@ -306,9 +311,11 @@ function reduceHUDValuesByDefaultEachHour()
     console.log("Stamina: "+curHUDEnergy);
     if(curHUDEnergy > 0)
     {
-        $( "#ui_HUDEnergy" ).val(curHUDEnergy); // update hidden field
-        $( "#ui_HUDEnergyProgress" ).attr('aria-valuenow', curHUDEnergy+'%').css('width',curHUDEnergy+'%'); // update progress-bar itself
-		$( "#ui_HUDEnergyProgressLabel" ).text( curHUDEnergy+'%' );	// update label of progress bar
+		updateProgressBar({progressBarHiddenField: ui_HUDEnergy.id, progressBar: ui_HUDEnergyProgress.id , progressBarLabel: ui_HUDEnergyProgressLabel.id , newValue: curHUDEnergy});
+
+        //$( "#ui_HUDEnergy" ).val(curHUDEnergy); // update hidden field
+        //$( "#ui_HUDEnergyProgress" ).attr('aria-valuenow', curHUDEnergy+'%').css('width',curHUDEnergy+'%'); // update progress-bar itself
+		//$( "#ui_HUDEnergyProgressLabel" ).text( curHUDEnergy+'%' );	// update label of progress bar
 
 		// adjust progress-bar color
 		if(curHUDEnergy => 70) // green
@@ -338,9 +345,11 @@ function reduceHUDValuesByDefaultEachHour()
     console.log("BodyTemp: "+curHUDBodyTemp);
     if(curHUDBodyTemp > 0)
     {
-        $( "#ui_HUDBodyTemp" ).val(curHUDBodyTemp); // update hidden field
-        $( "#ui_HUDBodyTempProgress" ).attr('aria-valuenow', curHUDBodyTemp+'%').css('width',curHUDBodyTemp+'%'); // update progress-bar itself
-		$( "#ui_HUDBodyTempProgressLabel" ).text( curHUDBodyTemp+'%' );	// update label of progress bar
+		updateProgressBar({progressBarHiddenField: ui_HUDBodyTemp.id, progressBar: ui_HUDBodyTempProgress.id , progressBarLabel: ui_HUDBodyTempProgressLabel.id , newValue: curHUDBodyTemp});
+
+        //$( "#ui_HUDBodyTemp" ).val(curHUDBodyTemp); // update hidden field
+        //$( "#ui_HUDBodyTempProgress" ).attr('aria-valuenow', curHUDBodyTemp+'%').css('width',curHUDBodyTemp+'%'); // update progress-bar itself
+		//$( "#ui_HUDBodyTempProgressLabel" ).text( curHUDBodyTemp+'%' );	// update label of progress bar
 
 		// adjust progress-bar color
 		if(curHUDBodyTemp => 70) // green
