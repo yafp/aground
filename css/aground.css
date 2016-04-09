@@ -10,16 +10,6 @@
     text-align: center;
 }
 
-#taskArea{
-    border-style: solid;
-    border-width: 5px;
-    border-color: #f05f40;
-    margin: 10px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    border-radius: 15px;
-}
-
 
 .taskArea{
     border-style: solid;

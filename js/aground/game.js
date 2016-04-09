@@ -28,8 +28,8 @@ function gameStart()
 	gameSetInitialValues();
 
     // Start game loop
-    intervalID = setInterval(onTimerTick, 1000); // 33 milliseconds = ~ 30 frames per sec
-	//intervalID = setInterval(onTimerTick, 10); // 33 milliseconds = ~ 30 frames per sec
+    //intervalID = setInterval(onTimerTick, 1000); // 33 milliseconds = ~ 30 frames per sec
+	intervalID = setInterval(onTimerTick, 10); // 33 milliseconds = ~ 30 frames per sec
 
 	// navigation
 	$('#navGamePause').fadeIn(1);
@@ -106,6 +106,19 @@ function gameSetInitialValues()
 // #############################################################################
 // GAME
 // #############################################################################
+
+function updateProgressBar(progressBarName, newValue)
+{
+	console.log("Updating a progress bar");
+	
+	progressBar = "#"+progressBarName;
+
+	$( progressBar ).val(newValue); // update hidden field
+	$( progressBar+"Progress" ).attr('aria-valuenow', newValue+'%').css('width',newValue+'%'); // update progress-bar itself
+	$( progressBar+"ProgressLabel" ).text( newValue+'%' );	// update label of progress bar
+}
+
+
 
 function toggleTaskArea(area)
 {
@@ -292,6 +305,11 @@ function reduceHUDValuesByDefaultEachHour()
 function gameEnd(reason)
 {
 	clearInterval(intervalID); // stop the game loop
+
+	updateProgressBar(ui_HUDWater,0);
+	updateProgressBar(ui_HUDStamina,0);
+	updateProgressBar(ui_HUDStamina,0);
+	updateProgressBar(ui_HUDStamina,0);
 
 	// fadeOut some sections
 	$('#section_tasks').fadeOut(1000);
