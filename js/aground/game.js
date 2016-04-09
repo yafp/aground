@@ -85,17 +85,23 @@ function gameSetInitialValues()
    {
       case "hardcore":
 			factorLossWaterPerHour = 0.8;
-			factorLossStaminaPerHour = 0.9;
+			factorLossStaminaPerHour = 0.8;
+			factorLossEnergyPerHour = 0.85;
+			factorLossBodyTempPerHour = 0.9;
          break;
 
       case "harder":
             factorLossWaterPerHour = 0.9;
 			factorLossStaminaPerHour = 0.95;
+			factorLossEnergyPerHour = 0.95;
+			factorLossBodyTempPerHour = 0.95;
          break;
 
       default:
 			factorLossWaterPerHour = 0.95;
 			factorLossStaminaPerHour = 0.99;
+			factorLossEnergyPerHour = 0.99;
+			factorLossBodyTempPerHour = 0.99;
 	}
 }
 
@@ -107,26 +113,24 @@ function gameSetInitialValues()
 // GAME
 // #############################################################################
 
-function updateProgressBar(progressBarName, newValue)
+function updateProgressBar(arg)
 {
 	console.log("Updating a progress bar");
-	
-	progressBar = "#"+progressBarName;
+	console.log(arg.progressBarHiddenField);
+	console.log(arg.progressBar);
+	console.log(arg.progressBarLabel);
+	console.log(arg.newValue);
 
-	$( progressBar ).val(newValue); // update hidden field
-	$( progressBar+"Progress" ).attr('aria-valuenow', newValue+'%').css('width',newValue+'%'); // update progress-bar itself
-	$( progressBar+"ProgressLabel" ).text( newValue+'%' );	// update label of progress bar
+	$( "#"+arg.progressBarHiddenField).val(arg.newValue); // update hidden field
+	$( "#"+arg.progressBar ).attr('aria-valuenow', arg.newValue+'%').css('width',arg.newValue+'%'); // update progress-bar itself
+	$( "#"+arg.progressBarLabel ).text( arg.newValue+'%' );	// update label of progress bar
 }
-
 
 
 function toggleTaskArea(area)
 {
 	curArea = "#"+area
 	console.log("Toggle the task section "+curArea);
-
-	// hide all other areas besides the currently clicked
-
 
 	// check if the selected area is currently visible or not
 	if($(curArea).is(':hidden'))
@@ -240,7 +244,7 @@ function reduceHUDValuesByDefaultEachHour()
     if(curHUDWater > 0)
     {
         $( "#ui_HUDWater" ).val(curHUDWater); // update hidden field
-        $('#ui_HUDWaterProgress').attr('aria-valuenow', curHUDWater+'%').css('width',curHUDWater+'%'); // update progress-bar itself
+        $( '#ui_HUDWaterProgress').attr('aria-valuenow', curHUDWater+'%').css('width',curHUDWater+'%'); // update progress-bar itself
 		$( "#ui_HUDWaterProgressLabel" ).text( curHUDWater+'%' );	// update label of progress bar
 
 		// adjust progress-bar color
@@ -261,6 +265,7 @@ function reduceHUDValuesByDefaultEachHour()
     else {
         $( "#ui_HUDWater" ).val(0);
         gameEnd("You hydrated");
+		return;
     }
 
 	// Stamina
@@ -291,7 +296,73 @@ function reduceHUDValuesByDefaultEachHour()
     else {
         $( "#ui_HUDStamina" ).val(0);
         gameEnd("Your stamina reached 0");
+		return;
     }
+
+
+	// Energy
+	//
+	curHUDEnergy = Math.floor(curHUDEnergy * factorLossEnergyPerHour);
+    console.log("Stamina: "+curHUDEnergy);
+    if(curHUDEnergy > 0)
+    {
+        $( "#ui_HUDEnergy" ).val(curHUDEnergy); // update hidden field
+        $( "#ui_HUDEnergyProgress" ).attr('aria-valuenow', curHUDEnergy+'%').css('width',curHUDEnergy+'%'); // update progress-bar itself
+		$( "#ui_HUDEnergyProgressLabel" ).text( curHUDEnergy+'%' );	// update label of progress bar
+
+		// adjust progress-bar color
+		if(curHUDEnergy => 70) // green
+		{
+			ui_HUDEnergyProgress.className = "progress-bar progress-bar-striped progress-bar-success active";
+		}
+		if(curHUDEnergy < 70) // yellow
+		{
+			ui_HUDEnergyProgress.className = "progress-bar progress-bar-striped progress-bar-warning active";
+		}
+
+		if(curHUDEnergy < 30) // red
+		{
+			ui_HUDEnergyProgress.className = "progress-bar progress-bar-striped progress-bar-danger active";
+		}
+    }
+    else {
+        $( "#ui_HUDEnergy" ).val(0);
+        gameEnd("Your energy reached 0");
+		return;
+    }
+
+
+	// BodyTemp
+	//
+	curHUDBodyTemp = Math.floor(curHUDBodyTemp * factorLossBodyTempPerHour);
+    console.log("BodyTemp: "+curHUDBodyTemp);
+    if(curHUDBodyTemp > 0)
+    {
+        $( "#ui_HUDBodyTemp" ).val(curHUDBodyTemp); // update hidden field
+        $( "#ui_HUDBodyTempProgress" ).attr('aria-valuenow', curHUDBodyTemp+'%').css('width',curHUDBodyTemp+'%'); // update progress-bar itself
+		$( "#ui_HUDBodyTempProgressLabel" ).text( curHUDBodyTemp+'%' );	// update label of progress bar
+
+		// adjust progress-bar color
+		if(curHUDBodyTemp => 70) // green
+		{
+			ui_HUDBodyTempProgress.className = "progress-bar progress-bar-striped progress-bar-success active";
+		}
+		if(curHUDBodyTemp < 70) // yellow
+		{
+			ui_HUDBodyTempProgress.className = "progress-bar progress-bar-striped progress-bar-warning active";
+		}
+
+		if(curHUDBodyTemp < 30) // red
+		{
+			ui_HUDBodyTempProgress.className = "progress-bar progress-bar-striped progress-bar-danger active";
+		}
+    }
+    else {
+        $( "#ui_HUDBodyTemp" ).val(0);
+        gameEnd("Your body temp reached 0");
+		return;
+    }
+
 }
 
 
@@ -306,16 +377,17 @@ function gameEnd(reason)
 {
 	clearInterval(intervalID); // stop the game loop
 
-	updateProgressBar(ui_HUDWater,0);
-	updateProgressBar(ui_HUDStamina,0);
-	updateProgressBar(ui_HUDStamina,0);
-	updateProgressBar(ui_HUDStamina,0);
+	updateProgressBar({progressBarHiddenField: ui_HUDWater.id, progressBar: ui_HUDWaterProgress.id , progressBarLabel: ui_HUDWaterProgressLabel.id , newValue: 0});
+	updateProgressBar({progressBarHiddenField: ui_HUDStamina.id, progressBar: ui_HUDStaminaProgress.id , progressBarLabel: ui_HUDStaminaProgressLabel.id , newValue: 0});
+	updateProgressBar({progressBarHiddenField: ui_HUDEnergy.id, progressBar: ui_HUDEnergyProgress.id , progressBarLabel: ui_HUDEnergyProgressLabel.id , newValue: 0});
+	updateProgressBar({progressBarHiddenField: ui_HUDBodyTemp.id, progressBar: ui_HUDBodyTempProgress.id , progressBarLabel: ui_HUDBodyTempProgressLabel.id , newValue: 0});
 
-	// fadeOut some sections
-	$('#section_tasks').fadeOut(1000);
-
+	console.log("Finished cleaning the progress bars");
 	console.log(reason);
 	console.log("*** GAME OVER ***");
+
+	$('#section_tasks').fadeOut(1000); // fadeOut the task-sections
+	$('#navGamePause').fadeOut(1000); // fade out pause nav bar entry
 
 	displayNoty("<h2>GAME OVER</h2><hr><h4>"+reason+"</h4>","notification");
 }
@@ -331,6 +403,7 @@ function uiCleanGUINoGameRunning()
 	console.log("Cleaned UI (no game running)");
 
 	// main sections
+	//
 	// hide some
 	$('#section_status').fadeOut(500);
 	$('#section_tasks').fadeOut(500);

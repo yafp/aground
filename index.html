@@ -144,7 +144,7 @@
 							<div id="ui_HUDWaterProgressLabel">100%</div>
 						</div>
 					</div>
-					<input type="text" id="ui_HUDWater" disabled hidden>
+					<input type="text" id="ui_HUDWater" disabled>
 				</div>
 				<!-- /Hydration -->
 
@@ -156,11 +156,11 @@
 					</div>
 					<!-- progress-bar -->
 					<div class="progress">
-						<div id="ui_HUDStaminaProgress" class="progress-bar progress-bar-striped progress-bar-success active" style="min-width: 30px;" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+						<div id="ui_HUDStaminaProgress" class="progress-bar progress-bar-striped progress-bar-success active" style="min-width: 30px;" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%" min-width="10%">
 							<div id="ui_HUDStaminaProgressLabel">100%</div>
 						</div>
 					</div>
-					<input type="text" id="ui_HUDStamina" disabled hidden>
+					<input type="text" id="ui_HUDStamina" disabled>
 				</div>
 				<!-- /Stamina -->
 
@@ -169,9 +169,12 @@
 					<div class="service-box">
 						<i class="fa fa-2x fa-battery-half wow bounceIn text-primary" data-wow-delay=".2s"></i>
 						<h4>Energy</h4>
-						<!--
-						<p class="text-muted">Get food and sleep to gain energy</p>
-						-->
+					</div>
+					<!-- progress-bar -->
+					<div class="progress">
+						<div id="ui_HUDEnergyProgress" class="progress-bar progress-bar-striped progress-bar-success active" style="min-width: 30px;" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%" min-width="10%">
+							<div id="ui_HUDEnergyProgressLabel">100%</div>
+						</div>
 					</div>
 					<input type="text" id="ui_HUDEnergy" disabled>
 				</div>
@@ -182,9 +185,12 @@
 					<div class="service-box">
 						<i class="fa fa-2x fa-heartbeat wow bounceIn text-primary" data-wow-delay=".3s"></i>
 						<h4>Body Temp.</h4>
-						<!--
-						<p class="text-muted">Light some fire ...</p>
-						-->
+					</div>
+					<!-- progress-bar -->
+					<div class="progress">
+						<div id="ui_HUDBodyTempProgress" class="progress-bar progress-bar-striped progress-bar-success active" style="min-width: 30px;" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%" min-width="10%">
+							<div id="ui_HUDBodyTempProgressLabel">100%</div>
+						</div>
 					</div>
 					<input type="text" id="ui_HUDBodyTemp" disabled>
 				</div>
@@ -341,7 +347,7 @@
 		<div class="container text-center">
 			<div class="call-to-action">
 				<p><a href="https://github.com/yafp/aground" class="bg-inverse">aground</a> is developed by <a href="http://www.yafp.de">yafp</a> since 2016.</p>
-				<p>Version: 20160409.01</p>
+				<p>Version: 20160409.02</p>
 				<p><a href="https://github.com/yafp/agrounds"><i class="fa fa-4x fa-github"></i></a></p>
 			</div>
 		</div>
