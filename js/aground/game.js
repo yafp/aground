@@ -114,6 +114,26 @@ function gameSetInitialValues()
 // GAME
 // #############################################################################
 
+function updateFood(foodType)
+{
+	console.log("User consumes "+foodType);
+
+	getHUDValues();
+
+	// Hydration
+	//
+	if (foodType="drink")
+	{
+		curHUDWater = curHUDWater + 20;
+		if (curHUDWater > 100)
+		{
+			curHUDWater = 100;
+		}
+		updateProgressBar({progressBarHiddenField: ui_HUDWater.id, progressBar: ui_HUDWaterProgress.id , progressBarLabel: ui_HUDWaterProgressLabel.id , newValue: curHUDWater});
+	}
+}
+
+
 function updateProgressBar(arg)
 {
 	console.log("Updating a progress bar");
@@ -245,10 +265,6 @@ function reduceHUDValuesByDefaultEachHour()
     if(curHUDWater > 0)
     {
 		updateProgressBar({progressBarHiddenField: ui_HUDWater.id, progressBar: ui_HUDWaterProgress.id , progressBarLabel: ui_HUDWaterProgressLabel.id , newValue: curHUDWater});
-
-        //$( "#ui_HUDWater" ).val(curHUDWater); // update hidden field
-        //$( '#ui_HUDWaterProgress').attr('aria-valuenow', curHUDWater+'%').css('width',curHUDWater+'%'); // update progress-bar itself
-		//$( "#ui_HUDWaterProgressLabel" ).text( curHUDWater+'%' );	// update label of progress bar
 
 		// adjust progress-bar color
 		if(curHUDWater => 70) // green
