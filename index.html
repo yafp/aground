@@ -287,14 +287,17 @@
 			<!-- Camp -->
 			<div class="taskArea" id="camp">
 				<h3>Camp</h3>
-				<button type="button" class="btn btn-default" onClick="doSleep();">Sleep (4h)</button>
+				<div class="btn-group-vertical" role="group" aria-label="...">
+					<button type="button" class="btn btn-custom" onClick="doSleep();">Sleep (4h)</button>
+					<button type="button" class="btn btn-custom" onClick="doBuild('rainCatcher','60');">Build Raincatcher (1h)</button>
+				</div>
 			</div>
 
 			<!-- food -->
 			<div class="taskArea" id="food">
 				<h3>Food</h3>
 				<div class="btn-group-vertical" role="group" aria-label="...">
-					<button type="button" class="btn btn-default" onClick="doFood('drink');">Drink</button>
+					<button type="button" class="btn btn-custom" onClick="doFood('drink');">Drink</button>
 					<!--
 					<button type="button" class="btn btn-default" onClick="updateFood('eat');">Eat</button>
 					-->
@@ -347,7 +350,7 @@
 		<div class="container text-center">
 			<div class="call-to-action">
 				<p><a href="https://github.com/yafp/aground" class="bg-inverse">aground</a> is developed by <a href="http://www.yafp.de">yafp</a> since 2016.</p>
-				<p>Version: 20160411.01</p>
+				<p>Version: 20160411.02</p>
 				<p><a href="https://github.com/yafp/agrounds"><i class="fa fa-4x fa-github"></i></a></p>
 			</div>
 		</div>
