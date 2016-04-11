@@ -121,6 +121,23 @@ function gameSetInitialValues()
 // GAME
 // #############################################################################
 
+//
+//
+function doBuild(objectType,buildTime)
+{
+	console.log("Build "+objectType+" which will take "+buildTime+" minutes");
+
+	// todo
+	// check if there is already a raincatcher in this camp
+
+	for (var i = 0; i < buildTime; i++)
+	{
+		gameProgressOneTick();
+	}
+	displayNoty("You just build a "+objectType,"notification","2000");
+}
+
+
 // Sleep regenerates Energy & Stamina
 //
 function doSleep()
@@ -437,6 +454,9 @@ function uiCleanGUINoGameRunning()
 
 	// navigation-related
 	$("#navGamePause").fadeOut(1); // show pause menu entry
+
+	// might be an issue - after game 1 - using new game function ends up with red progressbars
+	// set HUD progressBar colors
 
 	// show some
 	$("#section_settings").fadeIn(500);
