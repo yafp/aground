@@ -1,4 +1,8 @@
-# aground
+[![License](https://img.shields.io/badge/license-GPL3-brightgreen.svg)](LICENSE)
+
+![logo](https://raw.githubusercontent.com/yafp/aground/master/img/fa-map-o_128_0_f05f40_none.png) aground
+=========
+
 Survival game based on modern web-technologies
 
 
